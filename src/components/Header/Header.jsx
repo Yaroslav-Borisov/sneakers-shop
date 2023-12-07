@@ -1,32 +1,22 @@
-import { Link } from 'react-router-dom';
-
-export const Header = ({cartCards, onChange}) => {
-
-	const priceSum = cartCards.map(card => card.price).reduce((sum, current) => sum + current, 0);
-	const formatedPriceSum = new Intl.NumberFormat('ru-RU').format(priceSum);
-
-	const drawerOpener = () => {
-		onChange(true);
-	};
-
+export const Header = () => {
 	return (
 		<header className="page-header">
-			<Link className="page-header__logo logo" to="/">
-				<img className="logo__image" src="/img/logo.png" width="40" height="40" />
+			<a className="page-header__logo logo" href="#">
+				<img className="logo__image" src="img/logo.png" width="40" height="40" />
 				<span className="logo__title">Sneakers-Shop</span>
 				<span className="logo__desc">Магазин брендовых кроссовок</span>
-			</Link>
+			</a>
 			<nav className="page-header__nav main-nav">
-				<a className="main-nav__link" onClick={drawerOpener}>
+				<a className="main-nav__link" href="#">
 					<img className="main-nav__icon" src="img/cart.svg" width="20" height="19" />
-					<span className="main-nav__text">{formatedPriceSum} руб.</span>
+					<span className="main-nav__text">1205 руб.</span>
 				</a>
-				<Link className="main-nav__link" to="/favorites">
+				<a className="main-nav__link" href="#">
 					<img className="main-nav__icon" src="img/fav.svg" width="20" height="19" />
-				</Link>
-				<Link className="main-nav__link" to="/orders">
+				</a>
+				<a className="main-nav__link" href="#">
 					<img className="main-nav__icon" src="img/user.svg" width="20" height="20" />
-				</Link>
+				</a>
 			</nav>
 		</header>
 	);
