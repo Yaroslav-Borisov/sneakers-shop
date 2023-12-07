@@ -1,4 +1,4 @@
-export const Card = ({card, favChanger}) => {
+export const Card = ({card, favChanger, cartChanger}) => {
 	const {id, image, title, price, isFavorite, isCart} = card;
 	const formatedPrice = new Intl.NumberFormat('ru-RU').format(price);
 
@@ -14,7 +14,7 @@ export const Card = ({card, favChanger}) => {
 				<span className="card__price-value">{formatedPrice} руб.</span>
 			</div>
 			<button className="card__button card__button--cart">
-				<img className="card__button-icon" src={isCart ? 'img/btn-plus-active.svg' : 'img/btn-plus.svg'} width="32" height="32" />
+				<img className="card__button-icon" src={isCart ? 'img/btn-plus-active.svg' : 'img/btn-plus.svg'} onClick={() => cartChanger(id)} width="32" height="32" />
 			</button>
 		</div>
 	);

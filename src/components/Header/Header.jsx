@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
 
-export const Header = ({onChange}) => {
+export const Header = ({cartCards, onChange}) => {
+
+	const priceSum = cartCards.map(card => card.price).reduce((sum, current) => sum + current, 0);
+	const formatedPriceSum = new Intl.NumberFormat('ru-RU').format(priceSum);
 
 	const drawerOpener = () => {
 		onChange(true);
@@ -16,7 +19,7 @@ export const Header = ({onChange}) => {
 			<nav className="page-header__nav main-nav">
 				<a className="main-nav__link" onClick={drawerOpener}>
 					<img className="main-nav__icon" src="img/cart.svg" width="20" height="19" />
-					<span className="main-nav__text">1205 руб.</span>
+					<span className="main-nav__text">{formatedPriceSum} руб.</span>
 				</a>
 				<Link className="main-nav__link" to="/favorites">
 					<img className="main-nav__icon" src="img/fav.svg" width="20" height="19" />

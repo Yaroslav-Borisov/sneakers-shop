@@ -5,8 +5,9 @@ import { Header } from '../../components/Header/Header';
 import { Main } from '../../components/Main/Main';
 import { PageWrapper } from '../../components/PageWrapper/PageWrapper';
 
-export const FavoritesPage = ({updatedCards, setUpdatedCards}) => {
+export const FavoritesPage = ({updatedCards, setUpdatedCards, cartCards, orderState, setOrderState}) => {
 	const [drawerState, setDrawerState] = useState(false);
+	const favoriteCards = updatedCards.filter(card => card.isFavorite);
 
 	const drawerStateChanger = (isDrawerActive) => {
 		setDrawerState(isDrawerActive);
@@ -20,14 +21,33 @@ export const FavoritesPage = ({updatedCards, setUpdatedCards}) => {
 		setUpdatedCards([...updatedCards.slice(0, index), updatedCard, ...updatedCards.slice(index + 1)]);
 	};
 
+	const cartChanger = (id) => {
+		const card = updatedCards.find(card => card.id === id);
+		const updatedCard = {...card, isCart: !card.isCart};
+		const index = updatedCards.findIndex(card => card.id === id);
+        
+		setUpdatedCards([...updatedCards.slice(0, index), updatedCard, ...updatedCards.slice(index + 1)]);
+	};
+
 	return (
 		<PageWrapper>
-			<Header onChange={drawerStateChanger}/>
+			<Header 
+				cartCards={cartCards} 
+				onChange={drawerStateChanger}/>
 			<Main>
 				<h1 className="page-content__title page-title">Мои закладки</h1>
-				<CardList cards={updatedCards} favChanger={favChanger}/>
+				<CardList 
+					cards={favoriteCards} 
+					favChanger={favChanger}
+					cartChanger={cartChanger}/>
 			</Main>
-			<Drawer isActive={drawerState} onChange={setDrawerState}/>
+			<Drawer 
+				cartCards={cartCards} 
+				isActive={drawerState}
+				orderState={orderState}
+				setOrderState={setOrderState} 
+				onChange={setDrawerState} 
+				removeCard={cartChanger}/>
 		</PageWrapper>
 	);
 };
