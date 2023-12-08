@@ -11,6 +11,8 @@ import { ChangeEvents } from './consts';
 function App() {
 	const [updatedCards, setUpdatedCards] = useState(sneakers);
 	const [filteredCards, setFilteredCards] = useState(updatedCards);
+	const [orderedCards, setOrderedCards] = useState([]);
+
 	const [searchInputText, setSearchInputText] = useState('');
 	const [drawerState, setDrawerState] = useState(false);
 	const [orderState, setOrderState] = useState(false);
@@ -34,7 +36,7 @@ function App() {
 	};
 
 	return (
-		<AppContext.Provider value={{searchInputText, setSearchInputText, updatedCards, setUpdatedCards, cardChanger, setDrawerState, orderState, setOrderState}}>
+		<AppContext.Provider value={{searchInputText, setSearchInputText, updatedCards, setUpdatedCards, orderedCards, setOrderedCards, cardChanger, setDrawerState, orderState, setOrderState}}>
 			<BrowserRouter>
 				<div className="page-wrapper">
 					<Header/>
@@ -56,7 +58,7 @@ function App() {
 						<Route
 							path='/orders'
 							element={<Layout 
-								cards={updatedCards} 
+								cards={orderedCards} 
 								title={'Мои заказы'} 
 								hasSearch={false}/>}
 						/>

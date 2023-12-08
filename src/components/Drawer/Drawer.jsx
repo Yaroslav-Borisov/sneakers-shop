@@ -1,9 +1,10 @@
 import { useContext } from 'react';
 import { AppContext } from '../../context/app.context';
 import { CartCard } from '../CartCard/CartCard';
+import { nanoid } from 'nanoid';
 
 export const Drawer = () => {
-	const {updatedCards, setUpdatedCards, setDrawerState, orderState, setOrderState} = useContext(AppContext);
+	const {updatedCards, setUpdatedCards, orderedCards, setOrderedCards, setDrawerState, orderState, setOrderState} = useContext(AppContext);
 
 	const cartCards = updatedCards.filter(card => card.isCart);
 
@@ -25,6 +26,12 @@ export const Drawer = () => {
 			return card;
 		});
 
+		const newOrderedCards = cartCards.map(card => {
+			const orderedCard = {...card, id: nanoid()};
+			return orderedCard;
+		});
+
+		setOrderedCards([...orderedCards, ...newOrderedCards]);
 		setUpdatedCards(resetedCards);
 		setOrderState(true);
 	};
