@@ -1,11 +1,6 @@
-import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { AppContext } from '../../context/app.context';
 
 export const Header = () => {
-	const { updatedCards, setDrawerState } = useContext(AppContext);
-
-	const cartCardsSum = updatedCards.filter(card => card.isCart).map(card => card.price).reduce(((sum, currrent) => sum + currrent), 0);
 
 	return (
 		<header className="page-header">
@@ -15,9 +10,9 @@ export const Header = () => {
 				<span className="logo__desc">Магазин брендовых кроссовок</span>
 			</Link>
 			<nav className="page-header__nav main-nav">
-				<a className="main-nav__link" onClick={() => setDrawerState(true)}>
+				<a className="main-nav__link">
 					<img className="main-nav__icon" src="img/cart.svg" width="20" height="19" />
-					<span className="main-nav__text">{cartCardsSum} руб.</span>
+					<span className="main-nav__text">1234 руб.</span>
 				</a>
 				<Link className="main-nav__link" to="/favorites">
 					<img className="main-nav__icon" src="img/fav.svg" width="20" height="19" />

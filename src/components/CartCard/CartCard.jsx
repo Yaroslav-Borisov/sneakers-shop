@@ -1,10 +1,4 @@
-import { useContext } from 'react';
-import { AppContext } from '../../context/app.context';
-import { ChangeEvents } from '../../consts';
-
 export const CartCard = ({card}) => {
-	const { cardChanger } = useContext(AppContext);
-
 	const {id, image, title, price} = card;
 	const formatedPrice = new Intl.NumberFormat('ru-RU').format(price);
 
@@ -15,7 +9,7 @@ export const CartCard = ({card}) => {
 			<div className="card__price-block">
 				<span className="card__price-value">{formatedPrice} руб.</span>
 			</div>
-			<button className="card__button card__button--remove" onClick={() => cardChanger(id, ChangeEvents.ToggleCart)}>
+			<button className="card__button card__button--remove">
 				<img className="card__button-icon" src="img/btn-remove.svg" width="32" height="32"/>
 			</button>
 		</div>
