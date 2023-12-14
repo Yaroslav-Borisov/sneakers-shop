@@ -31,6 +31,23 @@ export const cardReducer = (state = defaultState, action) => {
 			]
 		};
 	}
+	case ActionTypes.TOGGLE_CART: {
+		const index = state.cards.findIndex((card) => card.id === action.payload);
+		const oldCard = state.cards[index];
+		const newCard = {
+			...oldCard,
+			isCart: !oldCard.isCart
+		};
+
+		return {
+			...state,
+			cards: [
+				...state.cards.slice(0, index),
+				newCard,
+				...state.cards.slice(index + 1)
+			]
+		};
+	}
 	default:
 		return state;
 	}
@@ -44,6 +61,13 @@ export const setSearchAction = (payload) => ({
 export const toggleFavoritesAction = (payload) => {
 	return {
 		type: ActionTypes.TOGGLE_FAVORITES,
+		payload
+	};
+};
+
+export const toggleCartAction = (payload) => {
+	return {
+		type: ActionTypes.TOGGLE_CART,
 		payload
 	};
 };

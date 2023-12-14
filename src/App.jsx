@@ -11,11 +11,12 @@ function App() {
 	const cards = useSelector(state => state.cards.cards);
 	const searchText = useSelector(state => state.cards.search);
 	const filteredCards = cards.filter(card => card.title.toLowerCase().includes(searchText.toLowerCase()));
+	const cartCards = cards.filter(card => card.isCart);
 
 	return (
 		<BrowserRouter>
 			<div className="page-wrapper">
-				<Header setDrawerState={setDrawerState}/>
+				<Header setDrawerState={setDrawerState} cartCards={cartCards}/>
 				<Routes>
 					<Route
 						path='/'
@@ -39,7 +40,7 @@ function App() {
 							hasSearch={false}/>}
 					/>
 				</Routes>
-				{drawerState ? <Drawer setDrawerState={setDrawerState}/> : <></>}
+				{drawerState ? <Drawer setDrawerState={setDrawerState} cartCards={cartCards}/> : <></>}
 			</div>
 		</BrowserRouter>
 	);

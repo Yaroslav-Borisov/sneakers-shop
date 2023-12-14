@@ -1,6 +1,14 @@
+import { useDispatch } from 'react-redux';
+import { toggleCartAction } from '../../store/cardReducer';
+
 export const CartCard = ({card}) => {
-	const {id, image, title, price} = card;
+	const dispatch = useDispatch();
+	const { id, image, title, price} = card;
 	const formatedPrice = new Intl.NumberFormat('ru-RU').format(price);
+
+	const toggleCart = () => {
+		dispatch(toggleCartAction(id));
+	};
 
 	return (
 		<div className="drawer__card-item card card--cart">
@@ -9,7 +17,7 @@ export const CartCard = ({card}) => {
 			<div className="card__price-block">
 				<span className="card__price-value">{formatedPrice} руб.</span>
 			</div>
-			<button className="card__button card__button--remove">
+			<button className="card__button card__button--remove" onClick={toggleCart}>
 				<img className="card__button-icon" src="img/btn-remove.svg" width="32" height="32"/>
 			</button>
 		</div>

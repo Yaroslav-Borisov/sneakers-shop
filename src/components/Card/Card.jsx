@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { toggleFavoritesAction } from '../../store/cardReducer';
+import { toggleCartAction, toggleFavoritesAction } from '../../store/cardReducer';
 
 export const Card = ({card}) => {
 	const dispatch = useDispatch();
@@ -8,6 +8,10 @@ export const Card = ({card}) => {
 
 	const toggleFavorites = () => {
 		dispatch(toggleFavoritesAction(id));
+	};
+
+	const toggleCart = () => {
+		dispatch(toggleCartAction(id));
 	};
 
 	return (
@@ -21,7 +25,7 @@ export const Card = ({card}) => {
 				<span className="card__price-label">Цена:</span>
 				<span className="card__price-value">{formatedPrice} руб.</span>
 			</div>
-			<button className="card__button card__button--cart">
+			<button className="card__button card__button--cart" onClick={toggleCart}>
 				<img className="card__button-icon" src={isCart ? 'img/btn-plus-active.svg' : 'img/btn-plus.svg'} width="32" height="32" />
 			</button>
 		</div>
