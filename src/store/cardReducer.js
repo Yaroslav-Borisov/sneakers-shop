@@ -1,8 +1,10 @@
+import { nanoid } from 'nanoid';
 import { sneakers } from '../../mock-data/mock-data';
 import { ActionTypes } from '../consts';
 
 const defaultState = {
 	cards: [...sneakers],
+	orderedCards: [],
 	search: ''
 };
 
@@ -48,6 +50,26 @@ export const cardReducer = (state = defaultState, action) => {
 			]
 		};
 	}
+	case ActionTypes.ORDER_CARDS: {
+		const orderedCards = action.payload.map((card) => {
+			return {
+				...card,
+				isCart: false,
+				id: nanoid()
+			};
+		});
+
+		return {
+			...state,
+			cards: state.cards.map((card) => {
+				if (card.isCart) {
+					card.isCart = false;
+				}
+				return card;
+			}),
+			orderedCards: [...state.orderedCards, ...orderedCards]
+		};
+	}
 	default:
 		return state;
 	}
@@ -68,6 +90,13 @@ export const toggleFavoritesAction = (payload) => {
 export const toggleCartAction = (payload) => {
 	return {
 		type: ActionTypes.TOGGLE_CART,
+		payload
+	};
+};
+
+export const orderCardsAction = (payload) => {
+	return {
+		type: ActionTypes.ORDER_CARDS,
 		payload
 	};
 };

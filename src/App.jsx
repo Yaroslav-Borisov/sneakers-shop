@@ -8,8 +8,12 @@ import { useState } from 'react';
 
 function App() {
 	const [drawerState, setDrawerState] = useState(false);
+	const [orderState, setOrderState] = useState(false);
+
 	const cards = useSelector(state => state.cards.cards);
+	const orderedCards = useSelector(state => state.cards.orderedCards);
 	const searchText = useSelector(state => state.cards.search);
+
 	const filteredCards = cards.filter(card => card.title.toLowerCase().includes(searchText.toLowerCase()));
 	const cartCards = cards.filter(card => card.isCart);
 
@@ -35,12 +39,12 @@ function App() {
 					<Route
 						path='/orders'
 						element={<Layout 
-							cards={cards} 
+							cards={orderedCards} 
 							title={'Мои заказы'} 
 							hasSearch={false}/>}
 					/>
 				</Routes>
-				{drawerState ? <Drawer setDrawerState={setDrawerState} cartCards={cartCards}/> : <></>}
+				{drawerState ? <Drawer setDrawerState={setDrawerState} cartCards={cartCards} orderState={orderState} setOrderState={setOrderState}/> : <></>}
 			</div>
 		</BrowserRouter>
 	);

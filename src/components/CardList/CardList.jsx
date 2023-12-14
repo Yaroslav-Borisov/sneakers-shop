@@ -5,7 +5,7 @@ export const CardList = ({cards}) => {
 		<>
 			{cards.length > 0 ? 
 				<div className="page-content__list card-list">
-					{cards.map((card) => <Card card={card} key={card.id}/>)}
+					{cards.map((card) => <Card card={card} key={card.OrderedId ? card.OrderedId : card.id}/>)}
 				</div> : 
 				<h2 className='page-content__list'>Пока здесь пусто...</h2>
 			}
