@@ -3,22 +3,47 @@ import { ActionTypes } from '../consts';
 
 const defaultState = {
 	cards: [...sneakers],
-	filteredCards: [...sneakers]
+	search: ''
 };
 
 export const cardReducer = (state = defaultState, action) => {
 	switch (action.type) {
-	case ActionTypes.FILTER_CARDS:
+	case ActionTypes.SET_SEARCH_TEXT: {
 		return {
 			...state,
-			filteredCards: [...state.cards.filter(card => card.title.toLowerCase().includes(action.payload.toLowerCase()))]
+			search: action.payload
 		};
+	}
+	case ActionTypes.TOGGLE_FAVORITES: {
+		const index = state.cards.findIndex((card) => card.id === action.payload);
+		const oldCard = state.cards[index];
+		const newCard = {
+			...oldCard,
+			isFavorite: !oldCard.isFavorite
+		};
+
+		return {
+			...state,
+			cards: [
+				...state.cards.slice(0, index),
+				newCard,
+				...state.cards.slice(index + 1)
+			]
+		};
+	}
 	default:
 		return state;
 	}
 };
 
-export const filterCardsAction = (payload) => ({
-	type: ActionTypes.FILTER_CARDS,
+export const setSearchAction = (payload) => ({
+	type: ActionTypes.SET_SEARCH_TEXT,
 	payload
 });
+
+export const toggleFavoritesAction = (payload) => {
+	return {
+		type: ActionTypes.TOGGLE_FAVORITES,
+		payload
+	};
+};

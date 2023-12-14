@@ -4,5 +4,6 @@ export const ChangeEvents = {
 };
 
 export const ActionTypes = {
-	FILTER_CARDS: 'FILTER_CARDS'
+	SET_SEARCH_TEXT: 'SET_SEARCH_TEXT',
+	TOGGLE_FAVORITES: 'TOGGLE_FAVORITES'
 };

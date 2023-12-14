@@ -1,10 +1,18 @@
+import { useDispatch } from 'react-redux';
+import { toggleFavoritesAction } from '../../store/cardReducer';
+
 export const Card = ({card}) => {
+	const dispatch = useDispatch();
 	const {id, image, title, price, isFavorite, isCart} = card;
 	const formatedPrice = new Intl.NumberFormat('ru-RU').format(price);
 
+	const toggleFavorites = () => {
+		dispatch(toggleFavoritesAction(id));
+	};
+
 	return (
 		<div className="card-list__item card">
-			<button className="card__button card__button--fav">
+			<button className="card__button card__button--fav" onClick={toggleFavorites}>
 				<img className="card__button-icon" src={isFavorite ? 'img/btn-fav-active.svg' : 'img/btn-fav.svg'} width="32" height="32" />
 			</button>
 			<img className="card__image" src={image} width="133" height="112" />

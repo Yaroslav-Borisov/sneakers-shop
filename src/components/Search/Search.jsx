@@ -1,11 +1,11 @@
-import { filterCardsAction } from '../../store/cardReducer';
 import { useDispatch } from 'react-redux';
+import { setSearchAction } from '../../store/cardReducer';
 
 export const Search = () => {
 	const dispatch = useDispatch();
 
 	const inputChangeHandler = (evt) => {
-		dispatch(filterCardsAction(evt.target.value.trim()));
+		dispatch(setSearchAction(evt.target.value.trim()));
 	};
 
 	return (

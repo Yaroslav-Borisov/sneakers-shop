@@ -1,19 +1,21 @@
 import './App.css';
 import { Header } from './components/Header/Header';
 import { Layout } from './pages/layout/layout';
-// import { Drawer } from './components/Drawer/Drawer';
+import { Drawer } from './components/Drawer/Drawer';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useState } from 'react';
 
 function App() {
-	const dispatch = useDispatch();
+	const [drawerState, setDrawerState] = useState(false);
 	const cards = useSelector(state => state.cards.cards);
-	const filteredCards = useSelector(state => state.cards.filteredCards);
+	const searchText = useSelector(state => state.cards.search);
+	const filteredCards = cards.filter(card => card.title.toLowerCase().includes(searchText.toLowerCase()));
 
 	return (
 		<BrowserRouter>
 			<div className="page-wrapper">
-				<Header/>
+				<Header setDrawerState={setDrawerState}/>
 				<Routes>
 					<Route
 						path='/'
@@ -25,7 +27,7 @@ function App() {
 					<Route
 						path='/favorites'
 						element={<Layout 
-							cards={cards} 
+							cards={filteredCards.filter(card => card.isFavorite)} 
 							title={'Избранные кроссовки'} 
 							hasSearch={false}/>}
 					/>
@@ -37,7 +39,7 @@ function App() {
 							hasSearch={false}/>}
 					/>
 				</Routes>
-				{/* {drawerState ? <Drawer/> : <></>} */}
+				{drawerState ? <Drawer setDrawerState={setDrawerState}/> : <></>}
 			</div>
 		</BrowserRouter>
 	);
